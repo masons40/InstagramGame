@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link href="css/style.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+        <div id="score-area" style="display: none;">
+            <h1 id="user-score"></h1>
+            <h3>Score</h3>
+        </div>
+        <div id="begin-area">
+            <h1>Instagram followers game</h1>
+            <button type="button" id="play-button">Play</button>
+        </div>
+        <div id="main-area" style="display: none;">
+            <h1>Who has more instagram followers?</h1>
+            <div class="profile_followers" data-id="followers_one">
+                <h3 class="username" id="username_one">Title</h3>
+                <img class="profile-pic" id="image_one" src="insta.jpg"/>
+            </div>
+            <div class="profile_followers" data-id="followers_two">
+                <h3 class="username" id="username_two">Title</h3>
+                <img class="profile-pic" id="image_two" src="insta.jpg"/>
+            </div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="js/InstagramGame.js"></script>
+    </body>
+</html>

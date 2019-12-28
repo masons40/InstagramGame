@@ -14,6 +14,16 @@ body {
   height: 100vh;
 }
 
+#category-area{
+  display: inline-grid;
+  grid-template-columns: repeat(4, 1fr);
+  width: 100%;
+}
+
+#category-box{
+  text-align: center;
+  font-family: 'Oswald', sans-serif;
+}
 #begin-area {
   width: 100%;
   font-family: "Oswald", sans-serif;

@@ -1,65 +1,46 @@
 
 $("document").ready(function(){
 
-  var name_one = "nasa";
-  var name_two = "anderson._paak";
-  var url = "https://www.instagram.com/";
-  var url_end = "/?__a=1";
-  var followers_one, followers_two, score=0;
 
-  $("#play-button").click(function(){
-    $("#begin-area").slideToggle();
-    $("#score-area").slideToggle();
-    $("#main-area").slideToggle();
-    $("#user-score").text(score);
+    var data_list ;
 
-    var instaPageOne = url+name_one+url_end;
-    var instaPagetwo = url+name_two+url_end;
+    $('#play-button').click(function () {
 
-    $.getJSON(instaPageOne).fail(function(){
-        console.log("fail");
-    }).done(function(json) {
-        var username_one = json["graphql"]["user"]["username"];
-        followers_one = json["graphql"]["user"]["edge_followed_by"]["count"];
-        var profile_pic_one = json["graphql"]["user"]["profile_pic_url_hd"];
-        $("#username_one").text(username_one);
-        $("#image_one").attr("src",String(profile_pic_one));
+        var playlistArea = $("#category-area");
+
+        $.getJSON('getPlaylist', function (data) {
+
+            $.each(data, function (key, value) {
+                var name = value.name;
+                playlistArea.append(
+                    $("<div />",{class:"category-box"}).append(
+                        $("<h3 />", {text:name}),
+                        $("<img />", {src:value.pics[0]}),
+                        $("<button/>", {href:"getArtists/" + value.id, type:"button", text:"Play Category", class:"start-button"})
+                    )
+                );
+            });
+        });
     });
 
 
-    $.getJSON(instaPagetwo).fail(function(){
-        console.log("fail");
-    }).done(function(json) {
-        var username_two = json["graphql"]["user"]["username"];
-        followers_two = json["graphql"]["user"]["edge_followed_by"]["count"];
-        var profile_pic_two = json["graphql"]["user"]["profile_pic_url_hd"];
-        $("#username_two").text(username_two);
-        $("#image_two").attr("src",String(profile_pic_two));
+    $("body").on('click', ".start-button" ,function() {
+        var datalink = $(this).attr("href");
+        $("#category-area").slideToggle();
+        $.getJSON(datalink, function (data) {
+            // $.each(data, function (key, value) {
+            // });
+            data_list=data;
+        });
+
+        $("#begin-area").slideToggle();
+        $("#score-area").slideToggle();
+        $("#main-area").slideToggle();
     });
-  });
 
-  $(".profile_followers").click(function(){
-    if($(this).attr("data-id")=="followers_one"){
-      if(followers_one>followers_two){
-        console.log("correct");
-        score+=1;
-        increaseScore(score);
-      }else{
-        console.log("incorrect");
-      }
-    }else{
-      if(followers_two>followers_one){
-        score+=1;
-        increaseScore(score);
-      }else{
-        console.log("incorrect");
-      }
-    }
-  });
 
+    $(".profile_followers").click(function () {
+        var random = data_list[Math.floor(Math.random() * data_list.length)];
+        console.log(random)
+    });
 });
-
-
-function increaseScore(score){
-  $("#user-score").text(score);
-} 

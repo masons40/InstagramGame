@@ -23,6 +23,19 @@ body{
     width:100%;
     height:100vh;
 }
+
+#category-area{
+    display:inline-block;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 1em 3em;
+}
+
+#category-box{
+    width: fit-content;
+    text-align: center;
+    font-size: 1.5em;
+    font-family: $header-font;
+}
 #begin-area{
     width:100%;
     font-family: $header-font;

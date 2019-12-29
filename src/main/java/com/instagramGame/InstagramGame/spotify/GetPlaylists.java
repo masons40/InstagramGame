@@ -11,6 +11,7 @@ import com.wrapper.spotify.requests.data.artists.GetArtistRequest;
 import com.wrapper.spotify.requests.data.browse.GetListOfFeaturedPlaylistsRequest;
 import com.wrapper.spotify.requests.data.playlists.GetPlaylistRequest;
 import com.wrapper.spotify.requests.data.playlists.GetPlaylistsTracksRequest;
+import org.checkerframework.checker.units.qual.A;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -72,17 +73,15 @@ public class GetPlaylists {
     }
 
 
-    public static ArrayList<ArtistRep> getPlaylistsTracks_Sync(String playlistID) {
+    public static ArrayList<String> getPlaylistsTracks_Sync(String playlistID) {
         GetPlaylistsTracksRequest getPlaylistsTracksRequest = spotifyApi.getPlaylistsTracks(playlistID).build();
-        ArrayList<ArtistRep> artistList = new ArrayList<>();
+        ArrayList<String> artistList = new ArrayList<>();
         try {
             final Paging<PlaylistTrack> playlistTrackPaging = getPlaylistsTracksRequest.execute();
 
             for(PlaylistTrack pt: playlistTrackPaging.getItems()){
                 for(ArtistSimplified a : pt.getTrack().getArtists()){
-                    GetArtistRequest getArtistRequest = spotifyApi.getArtist(a.getId()).build();
-                    Artist artist = getArtistRequest.execute();
-                    artistList.add(new ArtistRep(artist.getName(),artist.getImages()[0].getUrl(),artist.getPopularity()));
+                    artistList.add(a.getId());
                 }
             }
         } catch (IOException | SpotifyWebApiException e) {
@@ -90,6 +89,19 @@ public class GetPlaylists {
         }
 
         return artistList;
+    }
+
+    public static ArtistRep getArtistInfo_Sync(String artist) {
+        Artist artistInfo = null;
+        try {
+            GetArtistRequest getArtistRequest = spotifyApi.getArtist(artist).build();
+            artistInfo = getArtistRequest.execute();
+
+        } catch (IOException | SpotifyWebApiException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+        return new ArtistRep(artistInfo.getName(), artistInfo.getImages()[0].getUrl(), artistInfo.getPopularity());
     }
 
 }

@@ -1,13 +1,19 @@
 package com.instagramGame.InstagramGame.representation;
 
+import org.checkerframework.checker.units.qual.A;
+
 import java.util.ArrayList;
 
 public class ArtistRep {
 
     private String name = "";
-    private int populatriy = 0;
+    private Integer populatriy = 0;
     private String profile_pic = "";
     private String id = "";
+
+    public ArtistRep(){
+
+    }
 
     public ArtistRep(String name, String profile_pic, int populatriy){
         this.name = name;

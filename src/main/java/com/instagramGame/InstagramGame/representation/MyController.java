@@ -1,6 +1,7 @@
 package com.instagramGame.InstagramGame.representation;
 
 import com.instagramGame.InstagramGame.spotify.GetPlaylists;
+import com.wrapper.spotify.model_objects.specification.Artist;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -27,8 +28,21 @@ public class MyController {
 
     @RequestMapping(value = "/getArtists/{number}", produces = "application/json; charset=UTF-8")
     @ResponseBody
-    public ResponseEntity<ArrayList<ArtistRep>> getArtist(@PathVariable String number, HttpServletResponse httpServletResponse) {
-        ArrayList<ArtistRep> pr = GetPlaylists.getPlaylistsTracks_Sync(number);
+    public ResponseEntity<ArrayList<String>> getArtist(@PathVariable String number, HttpServletResponse httpServletResponse) {
+        ArrayList<String> pr = GetPlaylists.getPlaylistsTracks_Sync(number);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Responded", "MyController");
+
+        httpServletResponse.setHeader("Location", "index.html");
+        return ResponseEntity.accepted().headers(headers).body(pr);
+    }
+
+    @RequestMapping(value = "/getArtistValues/{number}", produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public ResponseEntity<ArtistRep> getArtistValues(@PathVariable String number, HttpServletResponse httpServletResponse) {
+        ArtistRep pr = GetPlaylists.getArtistInfo_Sync(number);
+
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Responded", "MyController");

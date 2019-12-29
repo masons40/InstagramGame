@@ -1,0 +1,147 @@
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+}
+
+body {
+  background: linear-gradient(45deg, #faa7a7, #82c3b1, #7b7bec);
+  width: 100%;
+  height: 100vh;
+}
+#secondary-play-button-area{
+  width: 100%;
+  height: 100%;
+  background-color: #00000054;
+  position: absolute;
+  top: 0;
+}
+#secondary-play-button{
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-40px, -50px);
+  width: 100px;
+  height: 30px;
+  border-radius: 3px;
+  cursor: pointer;
+  background-color: #494a9c;
+  color: white;
+}
+#category-area{
+  display: inline-grid;
+  grid-template-columns: repeat(4, 1fr);
+  width: 100%;
+  margin-top:2em;
+}
+
+.category-box{
+  text-align: center;
+  font-family: 'Oswald', sans-serif;
+}
+#begin-area {
+  width: 100%;
+  font-family: "Oswald", sans-serif;
+  text-align: center;
+  color: white;
+}
+
+#begin-area h1 {
+  margin: 1em 0;
+  font-size: 3em;
+  font-family: "Oswald", sans-serif;
+  font-weight: 100;
+  color: white;
+}
+
+#begin-area button {
+  padding: 10px;
+  border-radius: 3px;
+  background-color: #b1c9ab;
+  color: white;
+  width: 10%;
+  font-weight: 100;
+  letter-spacing: 2px;
+  -webkit-box-shadow: 0px 0px 25px -7px #00000036;
+          box-shadow: 0px 0px 25px -7px #00000036;
+  font-family: "Oswald", sans-serif;
+  cursor: pointer;
+  -webkit-transition: ease 1s transform;
+  transition: ease 1s transform;
+}
+
+#begin-area button:hover {
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+}
+
+#score-area {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: white;
+  font-family: "Oswald", sans-serif;
+  text-align: center;
+}
+
+#main-area {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-flow: wrap;
+      flex-flow: wrap;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  text-align: center;
+}
+
+#main-area h1 {
+  width: 100%;
+  margin: 1em 0;
+  font-size: 3em;
+  font-family: "Oswald", sans-serif;
+  font-weight: 100;
+  color: white;
+}
+
+#main-area .profile_followers {
+  width: 25%;
+  border: 1px solid #88888854;
+  border-radius: 14px;
+  background-color: #e8e8e8;
+  -webkit-box-shadow: 0px 0px 4px 5px black;
+  box-shadow: 0px 0px 124px -11px #00000061;
+  padding-bottom: 6em;
+  cursor: pointer;
+  -webkit-transition: ease 1s transform;
+  transition: ease 1s transform;
+}
+
+#main-area .profile_followers .username {
+  font-size: 2em;
+  margin: 1em 0;
+  font-family: "Oswald", sans-serif;
+  font-weight: 100;
+}
+
+#main-area .profile_followers .profile-pic {
+  border-radius: 300px;
+  width: 200px;
+  height: 200px;
+  margin-bottom: 1em;
+  padding: 7px;
+  border: 8px solid #6e6efc;
+}
+
+#main-area .profile_followers:hover {
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+}
+/*# sourceMappingURL=style.css.map */

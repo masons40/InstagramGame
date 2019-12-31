@@ -1,9 +1,40 @@
 
+
 $("document").ready(function(){
+
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyA56d-JVdrYYJbhhWzH_7jHFSl-YDux1X8",
+    authDomain: "spotifygame-34d95.firebaseapp.com",
+    databaseURL: "https://spotifygame-34d95.firebaseio.com",
+    projectId: "spotifygame-34d95",
+    storageBucket: "spotifygame-34d95.appspot.com",
+    messagingSenderId: "603965963816",
+    appId: "1:603965963816:web:9cc9f52eb7434e2d54ff1d"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
 
 
     var data_list , successJson;
     var popularity = [];
+
+    var rootRef = firebase.database().ref();
+
+     $("#save-button").click(function () {
+        var newScore = {};
+        newScore.name = document.getElementById("name").value;
+        newScore.score = parseInt(document.getElementById("score").value);
+        rootRef.push(newScore);
+             });
+
+
+    rootRef.orderByChild("score").limitToLast(10).on("child_added", function(data)  {
+      childScore = data.val();
+      document.getElementById("scores").innerHTML += childScore.name + " - " + childScore.score + "<br>";
+
+    });
 
     $('#play-button').click(function () {
 
@@ -23,6 +54,15 @@ $("document").ready(function(){
                 );
             });
         });
+    });
+
+    $('#end-screen').click(function () {
+
+        $("#end-area").slideToggle();
+        $("#score-area").slideToggle();
+        $("#main-area").slideToggle();
+//        $("#secondary-play-button-area").slideToggle();
+
     });
 
 

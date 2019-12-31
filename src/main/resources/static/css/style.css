@@ -144,4 +144,10 @@ body {
   -webkit-transform: scale(1.05);
           transform: scale(1.05);
 }
+
+
+#end-area {
+  width: 70%;     /* specify a width! */
+  margin: 0 auto; /* center */
+}
 /*# sourceMappingURL=style.css.map */

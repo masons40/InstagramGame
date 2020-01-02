@@ -1,0 +1,9 @@
+com\instagramGame\InstagramGame\representation\MyController.class
+com\instagramGame\InstagramGame\spotify\AuthorizationCodeUriExample.class
+com\instagramGame\InstagramGame\spotify\AuthorizationCodeExample.class
+com\instagramGame\InstagramGame\spotify\AuthorizationCodeRefreshExample.class
+com\instagramGame\InstagramGame\representation\PlaylistRep.class
+com\instagramGame\InstagramGame\representation\ArtistRep.class
+com\instagramGame\InstagramGame\spotify\ClientCredentialsExample.class
+com\instagramGame\InstagramGame\spotify\GetPlaylists.class
+com\instagramGame\InstagramGame\InstagramGameApplication.class

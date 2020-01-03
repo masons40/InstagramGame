@@ -16,19 +16,20 @@ $("document").ready(function(){
   firebase.initializeApp(firebaseConfig);
 
 
-    var data_list , successJson;
-    var popularity = [];
+    var data_list = new Set([]);
+    var popularity = new Map();
     var score=0;
     var artistOne, artistTwo;
 
     var rootRef = firebase.database().ref();
 
-     $("#save-button").click(function () {
+    $("#save-button").click(function () {
         var newScore = {};
         newScore.name = document.getElementById("name").value;
         newScore.score = parseInt(document.getElementById("score").value);
         rootRef.push(newScore);
-             });
+        $("#scores").slideToggle();
+    });
 
 
     rootRef.orderByChild("score").limitToLast(10).on("child_added", function(data)  {
@@ -45,11 +46,9 @@ $("document").ready(function(){
         $.getJSON('getPlaylist', function (data) {
 
             $.each(data, function (key, value) {
-                var name = value.name;
                 playlistArea.append(
                     $("<div />",{class:"category-box"}).append(
-                        $("<h3 />", {text:name}),
-                        $("<img />", {src:value.pics[0]}),
+                        $("<img />", {src:value.pics[0], class:"playlist-images"}),
                         $("<button/>", {href:"getArtists/" + value.id, type:"button", text:"Play Category", class:"start-button"})
                     )
                 );
@@ -70,20 +69,21 @@ $("document").ready(function(){
     $("body").on('click', ".start-button" ,function() {
         var datalink = $(this).attr("href");
         $("#category-area").slideToggle();
-        successJson = $.getJSON(datalink, function (data) {
-            // $.each(data, function (key, value) {
-            // });
-            data_list=data;
-        });
+        $.getJSON(datalink, function (data) {
+            $.each(data, function (key, value) {
+                data_list.add(value);
+            });
 
-        beginGame()
+        });
+        beginGame();
     });
 
 
     function beginGame(){
-            $("#score-area").slideToggle();
-            $("#main-area").slideToggle();
-            $("#secondary-play-button-area").slideToggle();
+        $("#score-area").slideToggle();
+        $("#main-area").slideToggle();
+        $("#secondary-play-button-area").slideToggle();
+
     }
 
     $("#secondary-play-button").click(function () {
@@ -92,67 +92,81 @@ $("document").ready(function(){
         findArtist(artistTwo);
         getArtistInfo(artistOne, "#username_one","#image_one");
         getArtistInfo(artistTwo, "#username_two","#image_two");
+
     });
 
 
     function getArtistInfo(number, user_name, user_pic) {
-        $.getJSON('getArtistValues/' + number, function (data) {
 
+        $.getJSON('getArtistValues/' + number, function (data) {
+            var id;
             $.each(data, function (key, value) {
+                if(key==="id"){
+                    id = value;
+                }
                 if(key==="name"){
                     $(user_name).text(value);
                 }else if(key==="profilePic"){
-                    console.log("pic", value);
                     $(user_pic).attr("src", value);
                 }else if(key==="popularity"){
-                    popularity.push(value);
+                    popularity.set(id, value);
                 }
 
             });
         });
+        $(user_name).attr("artist-id",number);
     }
 
     $('.profile_followers').click(function () {
-       var profile = $(this).attr("data-id");
-       if(profile==="followers_one"){
-           if(popularity[0] >= popularity[1]){
-               $(this).css("border", "6px solid #68d968");
-               score+=1;
-               $("#user-score").text(score);
-           }else{
-               $(this).css("border", "6px solid #d92929");
-           }
-           deleteVal(data_list, artistOne);
-           findArtist(artistOne);
+        var artist_id = $(this).find("h3").attr("artist-id");
+        var correct_border = "6px solid #68d968";
+        var incorrect_border = "6px solid #d92929";
+        for(let [key, value] of popularity){
+            if(key!==artist_id){
+                if(popularity.get(artist_id)>=value){
+                    score+=1;
+                    $("#user-score").text(score);
+                }else{
+                    finishGame();
+                }
 
-       }else{
-           if(popularity[1] >= popularity[0]){
-               $(this).css("border", "6px solid #68d968");
-               score+=1;
-               $("#user-score").text(score);
-           }else{
-               $(this).css("border", "6px solid #d92929");
-           }
-           deleteVal(data_list, artistTwo);
-           findArtist(artistTwo);
-       }
-
-       $(this).css("border", "none");
-    });
-
-    function deleteVal(arr, value){
-        for( var i = 0; i < arr.length; i++){
-            if ( arr[i] === value) {
-                arr[i] = "empty";
+                removeArtist(artist_id, key);
             }
         }
-    }
+
+    });
+
 
     function findArtist(val) {
-        if(val === artistOne){
-            artistOne = data_list[Math.floor(Math.random() * data_list.length)];
-        }else{
-            artistTwo = data_list[Math.floor(Math.random() * data_list.length)];
+        var amount = 0;
+        random = Math.floor(Math.random() * data_list.size);
+        for (let item of data_list.values()){
+            if(val === artistOne && amount===random){
+                artistOne = item;
+            }else if(amount===random){
+                artistTwo = item;
+            }
+            amount+=1;
         }
     }
+
+    function removeArtist(val, val2) {
+        data_list.delete(val);
+        data_list.delete(val2);
+        popularity.clear();
+        findArtist(artistOne);
+        getArtistInfo(artistOne, "#username_one","#image_one");
+        findArtist(artistTwo);
+        getArtistInfo(artistTwo, "#username_two","#image_two");
+        console.log(data_list);
+        console.log(data_list.size);
+    }
+
+
+    function finishGame(response){
+        $("#end-area").slideToggle();
+        $("#score").text(score);
+        $("#message").text(response);
+    }
+
 });

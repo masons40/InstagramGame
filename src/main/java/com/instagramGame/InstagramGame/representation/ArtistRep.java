@@ -15,10 +15,11 @@ public class ArtistRep {
 
     }
 
-    public ArtistRep(String name, String profile_pic, int populatriy){
+    public ArtistRep(String name, String profile_pic, int populatriy, String id){
         this.name = name;
         this.populatriy = populatriy;
         this.profile_pic = profile_pic;
+        this.id = id;
     }
 
     public String getName() {

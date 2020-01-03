@@ -9,7 +9,8 @@
 }
 
 body {
-  background: linear-gradient(45deg, #faa7a7, #82c3b1, #7b7bec);
+  /*background: linear-gradient(45deg, #faa7a7, #82c3b1, #7b7bec);*/
+  background-color: black;
   width: 100%;
   height: 100vh;
 }
@@ -34,15 +35,39 @@ body {
   color: white;
 }
 #category-area{
-  display: inline-grid;
-  grid-template-columns: repeat(4, 1fr);
-  width: 100%;
-  margin-top:2em;
+    display: inline-grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin: 0 auto;
+    margin-top:2em;
+    padding: 6em;
+    grid-gap:30px;
+
 }
 
+.playlist-images:hover{
+    opacity: 0.2;
+}
+.start-button{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50px, -50px);
+    width: 30%;
+    padding: 10px;
+    color: white;
+    border-radius: 5px;
+    cursor:pointer;
+    background: #1ed760;
+}
 .category-box{
-  text-align: center;
-  font-family: 'Oswald', sans-serif;
+    text-align: center;
+    font-family: 'Oswald', sans-serif;
+    cursor:pointer;
+    transition: ease 1s transform;
+}
+
+.category-box:hover{
+    transform: scale(1.05);
 }
 #begin-area {
   width: 100%;
@@ -52,27 +77,28 @@ body {
 }
 
 #begin-area h1 {
-  margin: 1em 0;
-  font-size: 3em;
-  font-family: "Oswald", sans-serif;
-  font-weight: 100;
-  color: white;
+    font-size: 3em;
+    font-family: "Oswald", sans-serif;
+    font-weight: 700;
+    color:white;
+    margin-bottom: 1em;
 }
 
 #begin-area button {
-  padding: 10px;
-  border-radius: 3px;
-  background-color: #b1c9ab;
-  color: white;
-  width: 10%;
-  font-weight: 100;
-  letter-spacing: 2px;
-  -webkit-box-shadow: 0px 0px 25px -7px #00000036;
-          box-shadow: 0px 0px 25px -7px #00000036;
-  font-family: "Oswald", sans-serif;
-  cursor: pointer;
-  -webkit-transition: ease 1s transform;
-  transition: ease 1s transform;
+    padding: 10px;
+    border-radius: 3px;
+    background-color:#1ed760;
+    color: white;
+    width: 10%;
+    font-weight: 100;
+    letter-spacing: 2px;
+    -webkit-box-shadow: 0px 0px 25px -7px
+    #00000036;
+    box-shadow: 0px 0px 25px -7px #00000036;
+    font-family: "Oswald", sans-serif;
+    cursor: pointer;
+    -webkit-transition: ease 1s transform;
+    transition: ease 1s transform;
 }
 
 #begin-area button:hover {
@@ -133,11 +159,11 @@ body {
 
 #main-area .profile_followers .profile-pic {
   border-radius: 300px;
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
   margin-bottom: 1em;
   padding: 7px;
-  border: 8px solid #6e6efc;
+  border: 8px solid #1ed760;
 }
 
 #main-area .profile_followers:hover {
@@ -147,7 +173,16 @@ body {
 
 
 #end-area {
-  width: 70%;     /* specify a width! */
-  margin: 0 auto; /* center */
+  display: block;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  text-align: center;
+  background-color: #0000007a;
+  height: 100%;
+  padding: 2em 0 0 0;
+  color: white;
 }
-/*# sourceMappingURL=style.css.map */
+#scores{
+
+}

@@ -101,7 +101,7 @@ public class GetPlaylists {
             System.out.println("Error: " + e.getMessage());
         }
 
-        return new ArtistRep(artistInfo.getName(), artistInfo.getImages()[0].getUrl(), artistInfo.getPopularity());
+        return new ArtistRep(artistInfo.getName(), artistInfo.getImages()[0].getUrl(), artistInfo.getPopularity(), artistInfo.getId());
     }
 
 }

@@ -35,16 +35,24 @@ $("document").ready(function(){
       var i = 10;
 
     rootRef.orderByChild("score").limitToLast(10).on("child_added", function(data)  {
-      childScore = data.val();
-      if (i!=0)   {
+      var childScore = data.val();
+      var element = $("#scores");
+      if (i!==0)   {
 
-            document.getElementById("scores").innerHTML += i+ "   " + childScore.name + " - " + childScore.score + "<br>";
+            element.append(
+                $("<tr />").append(
+                    $("<td />", {text:i}),
+                    $("<td />", {text:childScore.name}),
+                    $("<td />", {text:childScore.score})
+                )
+            );
+            //"<tr>" +i+ "   " + childScore.name + " - " + childScore.score + "<br>";
             i = i-1;
       }
-      else {
-       document.getElementById("scores").innerHTML += "<br><br>Your Score:" + childScore.name + " - " + childScore.score + "<br>";
-
-      }
+      // else {
+      //  document.getElementById("scores").innerHTML += "<br><br>Your Score:" + childScore.name + " - " + childScore.score + "<br>";
+      //
+      // }
 
     });
 
@@ -57,9 +65,10 @@ $("document").ready(function(){
 
             $.each(data, function (key, value) {
                 playlistArea.append(
-                    $("<div />",{class:"category-box"}).append(
+                    $("<div />",{class:"category-box"}).append
+                    (
                         $("<img />", {src:value.pics[0], class:"playlist-images"}),
-                        $("<button/>", {href:"getArtists/" + value.id, type:"button", text:"Play Category", class:"start-button"})
+                        $("<button />", {href:"getArtists/" + value.id, type:"button", text:"Play Category", class:"start-button"})
                     )
                 );
             });
@@ -163,13 +172,16 @@ $("document").ready(function(){
     function removeArtist(val, val2) {
         data_list.delete(val);
         data_list.delete(val2);
-        popularity.clear();
-        findArtist(artistOne);
-        getArtistInfo(artistOne, "#username_one","#image_one");
-        findArtist(artistTwo);
-        getArtistInfo(artistTwo, "#username_two","#image_two");
-        console.log(data_list);
-        console.log(data_list.size);
+        if(!gameComplete()){
+            popularity.clear();
+            findArtist(artistOne);
+            getArtistInfo(artistOne, "#username_one","#image_one");
+            findArtist(artistTwo);
+            getArtistInfo(artistTwo, "#username_two","#image_two");
+        }else{
+            alert("game finished");
+        }
+
     }
 
 
@@ -177,9 +189,15 @@ $("document").ready(function(){
         $("#end-area").slideToggle();
         $("#main-area").slideToggle();
 
-        $("#score").text(score);
+        $("#score").text("Score: " + score);
         $("#message").text(response);
+    }
 
+    function gameComplete(){
+        if(data_list.size <= 1){
+            return true;
+        }
+        return false;
     }
 
 });

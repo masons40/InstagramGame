@@ -10,7 +10,7 @@
         <div id="score-area" style="display: none;">
             <h1 id="user-score">0</h1>
             <h3>Score</h3>
-<!--            <button type="button" id="end-screen">end</button>-->
+            <a type="button" class="input-buttons" href="index.html" style="width:auto">Reset</a>
         </div>
         <div id="begin-area">
             <img src="images/spotifyLogo.png" style="width:10%;padding-top:2em;">
@@ -42,10 +42,16 @@
             <h2 id="message"></h2>
             <h1>Leaderboards</h1>
             <input id="name" type="text" placeholder="your name">
-            <h3 id="score" type="text"></h3>
-            <input type="button" id="save-button" value="Save">
-            <h3>Leaderboard</h3>
-            <div id="scores" type="text" value="leaderboard" style="display: none;"></div>
+            <h3 id="score"></h3>
+            <input type="button" id="save-button" class="input-buttons" value="Save Score">
+            <table id="scores" style="display: none;">
+                <tr>
+                    <td>Position</td>
+                    <td>Name</td>
+                    <td>Score</td>
+                </tr>
+            </table>
+            <a type="button" class="input-buttons" href="index.html">Play again</a>
         </div>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

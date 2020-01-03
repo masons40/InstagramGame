@@ -26,15 +26,25 @@ $("document").ready(function(){
     $("#save-button").click(function () {
         var newScore = {};
         newScore.name = document.getElementById("name").value;
-        newScore.score = parseInt(document.getElementById("score").value);
+        newScore.score = score;
         rootRef.push(newScore);
+        $("#save-button").slideToggle();
         $("#scores").slideToggle();
     });
 
+      var i = 10;
 
     rootRef.orderByChild("score").limitToLast(10).on("child_added", function(data)  {
       childScore = data.val();
-      document.getElementById("scores").innerHTML += childScore.name + " - " + childScore.score + "<br>";
+      if (i!=0)   {
+
+            document.getElementById("scores").innerHTML += i+ "   " + childScore.name + " - " + childScore.score + "<br>";
+            i = i-1;
+      }
+      else {
+       document.getElementById("scores").innerHTML += "<br><br>Your Score:" + childScore.name + " - " + childScore.score + "<br>";
+
+      }
 
     });
 
@@ -165,8 +175,11 @@ $("document").ready(function(){
 
     function finishGame(response){
         $("#end-area").slideToggle();
+        $("#main-area").slideToggle();
+
         $("#score").text(score);
         $("#message").text(response);
+
     }
 
 });
